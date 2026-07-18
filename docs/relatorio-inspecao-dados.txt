@@ -1,0 +1,262 @@
+
+========================================================================
+RELATORIO DE INSPECAO DAS BASES BRUTAS - RODOVIAVIS
+========================================================================
+Gerado em: 17/07/2026 21:21:09
+Script: preprocessing/inspecionar_bases.py
+Este relatorio e somente leitura: nenhum arquivo em data/raw/ foi alterado.
+
+========================================================================
+BASE 2022 - datatran2022.csv
+========================================================================
+Linhas: 64.606
+Colunas: 30
+Nomes das colunas: ['id', 'data_inversa', 'dia_semana', 'horario', 'uf', 'br', 'km', 'municipio', 'causa_acidente', 'tipo_acidente', 'classificacao_acidente', 'fase_dia', 'sentido_via', 'condicao_metereologica', 'tipo_pista', 'tracado_via', 'uso_solo', 'pessoas', 'mortos', 'feridos_leves', 'feridos_graves', 'ilesos', 'ignorados', 'feridos', 'veiculos', 'latitude', 'longitude', 'regional', 'delegacia', 'uop']
+Periodo: 2022-01-01 a 2022-12-31 (datas invalidas: 0)
+IDs unicos: 64.606 de 64.606 registros
+Nenhum id duplicado encontrado dentro desta base.
+
+Tipos de dados identificados pelo pandas:
+  - id: int64
+  - data_inversa: str
+  - dia_semana: str
+  - horario: str
+  - uf: str
+  - br: int64
+  - km: str
+  - municipio: str
+  - causa_acidente: str
+  - tipo_acidente: str
+  - classificacao_acidente: str
+  - fase_dia: str
+  - sentido_via: str
+  - condicao_metereologica: str
+  - tipo_pista: str
+  - tracado_via: str
+  - uso_solo: str
+  - pessoas: int64
+  - mortos: int64
+  - feridos_leves: int64
+  - feridos_graves: int64
+  - ilesos: int64
+  - ignorados: int64
+  - feridos: int64
+  - veiculos: int64
+  - latitude: str
+  - longitude: str
+  - regional: str
+  - delegacia: str
+  - uop: str
+
+Nenhum valor ausente identificado em nenhuma coluna.
+
+UFs presentes (27): ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO']
+
+Categorias de classificacao_acidente (4): ['Com Vítimas Fatais', 'Com Vítimas Feridas', 'NA', 'Sem Vítimas']
+Categorias de condicao_metereologica (10): ['Chuva', 'Céu Claro', 'Garoa/Chuvisco', 'Granizo', 'Ignorado', 'Neve', 'Nevoeiro/Neblina', 'Nublado', 'Sol', 'Vento']
+Categorias de tipo_pista (3): ['Dupla', 'Múltipla', 'Simples']
+Categorias de causa_acidente: 71 valores distintos.
+
+Latitude / Longitude:
+  - Formato original usa virgula decimal: sim
+  - Latitudes ausentes ou nao numericas apos conversao: 0
+  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Latitudes fora da faixa aproximada do Brasil: 0
+  - Longitudes fora da faixa aproximada do Brasil: 0
+  - Coordenadas exatamente (0, 0): 0
+
+Nenhuma variacao de grafia encontrada dentro do proprio ano de 2022 para causa_acidente.
+
+========================================================================
+BASE 2023 - datatran2023.csv
+========================================================================
+Linhas: 67.766
+Colunas: 30
+Nomes das colunas: ['id', 'data_inversa', 'dia_semana', 'horario', 'uf', 'br', 'km', 'municipio', 'causa_acidente', 'tipo_acidente', 'classificacao_acidente', 'fase_dia', 'sentido_via', 'condicao_metereologica', 'tipo_pista', 'tracado_via', 'uso_solo', 'pessoas', 'mortos', 'feridos_leves', 'feridos_graves', 'ilesos', 'ignorados', 'feridos', 'veiculos', 'latitude', 'longitude', 'regional', 'delegacia', 'uop']
+Periodo: 2023-01-01 a 2023-12-31 (datas invalidas: 0)
+IDs unicos: 67.766 de 67.766 registros
+Nenhum id duplicado encontrado dentro desta base.
+
+Tipos de dados identificados pelo pandas:
+  - id: int64
+  - data_inversa: str
+  - dia_semana: str
+  - horario: str
+  - uf: str
+  - br: int64
+  - km: str
+  - municipio: str
+  - causa_acidente: str
+  - tipo_acidente: str
+  - classificacao_acidente: str
+  - fase_dia: str
+  - sentido_via: str
+  - condicao_metereologica: str
+  - tipo_pista: str
+  - tracado_via: str
+  - uso_solo: str
+  - pessoas: int64
+  - mortos: int64
+  - feridos_leves: int64
+  - feridos_graves: int64
+  - ilesos: int64
+  - ignorados: int64
+  - feridos: int64
+  - veiculos: int64
+  - latitude: str
+  - longitude: str
+  - regional: str
+  - delegacia: str
+  - uop: str
+
+Nenhum valor ausente identificado em nenhuma coluna.
+
+UFs presentes (27): ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO']
+
+Categorias de classificacao_acidente (4): ['Com Vítimas Fatais', 'Com Vítimas Feridas', 'NA', 'Sem Vítimas']
+Categorias de condicao_metereologica (10): ['Chuva', 'Céu Claro', 'Garoa/Chuvisco', 'Granizo', 'Ignorado', 'Neve', 'Nevoeiro/Neblina', 'Nublado', 'Sol', 'Vento']
+Categorias de tipo_pista (3): ['Dupla', 'Múltipla', 'Simples']
+Categorias de causa_acidente: 75 valores distintos.
+
+Latitude / Longitude:
+  - Formato original usa virgula decimal: sim
+  - Latitudes ausentes ou nao numericas apos conversao: 0
+  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Latitudes fora da faixa aproximada do Brasil: 0
+  - Longitudes fora da faixa aproximada do Brasil: 0
+  - Coordenadas exatamente (0, 0): 0
+
+Nenhuma variacao de grafia encontrada dentro do proprio ano de 2023 para causa_acidente.
+
+========================================================================
+BASE 2024 - datatran2024.csv
+========================================================================
+Linhas: 73.156
+Colunas: 30
+Nomes das colunas: ['id', 'data_inversa', 'dia_semana', 'horario', 'uf', 'br', 'km', 'municipio', 'causa_acidente', 'tipo_acidente', 'classificacao_acidente', 'fase_dia', 'sentido_via', 'condicao_metereologica', 'tipo_pista', 'tracado_via', 'uso_solo', 'pessoas', 'mortos', 'feridos_leves', 'feridos_graves', 'ilesos', 'ignorados', 'feridos', 'veiculos', 'latitude', 'longitude', 'regional', 'delegacia', 'uop']
+Periodo: 2024-01-01 a 2024-12-31 (datas invalidas: 0)
+IDs unicos: 73.156 de 73.156 registros
+Nenhum id duplicado encontrado dentro desta base.
+
+Tipos de dados identificados pelo pandas:
+  - id: float64
+  - data_inversa: str
+  - dia_semana: str
+  - horario: str
+  - uf: str
+  - br: int64
+  - km: str
+  - municipio: str
+  - causa_acidente: str
+  - tipo_acidente: str
+  - classificacao_acidente: str
+  - fase_dia: str
+  - sentido_via: str
+  - condicao_metereologica: str
+  - tipo_pista: str
+  - tracado_via: str
+  - uso_solo: str
+  - pessoas: int64
+  - mortos: int64
+  - feridos_leves: int64
+  - feridos_graves: int64
+  - ilesos: int64
+  - ignorados: int64
+  - feridos: int64
+  - veiculos: int64
+  - latitude: float64
+  - longitude: float64
+  - regional: str
+  - delegacia: str
+  - uop: str
+
+Nenhum valor ausente identificado em nenhuma coluna.
+
+UFs presentes (27): ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO']
+
+Categorias de classificacao_acidente (4): ['Com Vítimas Fatais', 'Com Vítimas Feridas', 'NA', 'Sem Vítimas']
+Categorias de condicao_metereologica (10): ['Chuva', 'Céu Claro', 'Garoa/Chuvisco', 'Granizo', 'Ignorado', 'Neve', 'Nevoeiro/Neblina', 'Nublado', 'Sol', 'Vento']
+Categorias de tipo_pista (3): ['Dupla', 'Múltipla', 'Simples']
+Categorias de causa_acidente: 69 valores distintos.
+
+Latitude / Longitude:
+  - Formato original usa virgula decimal: nao
+  - Latitudes ausentes ou nao numericas apos conversao: 0
+  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Latitudes fora da faixa aproximada do Brasil: 0
+  - Longitudes fora da faixa aproximada do Brasil: 0
+  - Coordenadas exatamente (0, 0): 0
+
+Nenhuma variacao de grafia encontrada dentro do proprio ano de 2024 para causa_acidente.
+
+========================================================================
+COMPARACAO ENTRE OS ANOS - CABECALHOS
+========================================================================
+Os tres arquivos possuem exatamente as mesmas colunas, na mesma ordem.
+Total de colunas: 30
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - TIPOS DE DADOS POR COLUNA
+------------------------------------------------------------------------
+3 coluna(s) tiveram tipo de dado identificado de forma diferente entre os anos (isso costuma acontecer quando o formato do texto muda, ex.: virgula x ponto decimal, ou presenca/ausencia de valor nulo mudando int para float):
+  - id: {2022: 'int64', 2023: 'int64', 2024: 'float64'}
+  - latitude: {2022: 'str', 2023: 'str', 2024: 'float64'}
+  - longitude: {2022: 'str', 2023: 'str', 2024: 'float64'}
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - CLASSIFICACAO_ACIDENTE
+------------------------------------------------------------------------
+Total de categorias distintas somando os tres anos: 4
+Os tres anos compartilham exatamente o mesmo conjunto de categorias.
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - CONDICAO_METEREOLOGICA
+------------------------------------------------------------------------
+Total de categorias distintas somando os tres anos: 10
+Os tres anos compartilham exatamente o mesmo conjunto de categorias.
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - TIPO_PISTA
+------------------------------------------------------------------------
+Total de categorias distintas somando os tres anos: 3
+Os tres anos compartilham exatamente o mesmo conjunto de categorias.
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - POSSIVEIS DIFERENCAS DE GRAFIA EM CAUSA_ACIDENTE
+------------------------------------------------------------------------
+1 grupo(s) de causas que provavelmente representam o mesmo motivo, mas aparecem escritas de forma diferente entre os anos:
+  - ['Transitar no Acostamento', 'Transitar no acostamento']
+
+Quantidade de causas distintas por ano (grafia original, sem normalizar):
+  - 2022: 71 causas distintas
+  - 2023: 75 causas distintas
+  - 2024: 69 causas distintas
+
+------------------------------------------------------------------------
+COMPARACAO ENTRE OS ANOS - SOBREPOSICAO DE IDS
+------------------------------------------------------------------------
+Nenhum id se repete entre os tres anos: seguro concatenar as bases mantendo o id original.
+
+========================================================================
+RESUMO EXECUTIVO E PONTOS DE ATENCAO PARA preparar_dados.py
+========================================================================
+Total de registros somando as tres bases: 205.528
+
+Pontos que preparar_dados.py precisa tratar, com base nesta inspecao:
+  1. Renomear a coluna 'condicao_metereologica' para 'condicao_meteorologica'.
+  2. Unificar o formato de latitude/longitude (virgula em 2022/2023, ponto em
+     2024) antes de converter para numerico, usando a mesma logica de
+     converter_coordenada() usada aqui.
+  3. Tratar os valores ausentes listados acima por coluna, especialmente em
+     classificacao_acidente (fica vazio quando nao ha vitimas registradas).
+  4. Revisar as variacoes de grafia de causa_acidente listadas nas secoes
+     anteriores antes de gerar o agregado_causa_horario.csv, decidindo se
+     serao unificadas.
+  5. Criar a coluna 'ano' de forma explicita (nao depender do nome do arquivo)
+     e as colunas derivadas de tempo: mes_numero, mes_nome, dia_semana_numero,
+     fim_semana, hora e faixa_horario.
+  6. Ficar atento a divergencia de tipos de dados entre anos listada acima
+     (ex.: coluna id ou coordenadas lidas com tipos diferentes) e forcar um
+     tipo unico e explicito para cada coluna ao unificar as bases.
+  7. Nao ha sobreposicao de id entre anos (ver secao acima), entao o id
+     original pode ser preservado apos a uniao das tres bases.
