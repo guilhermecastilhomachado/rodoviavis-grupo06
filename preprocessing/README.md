@@ -1,14 +1,8 @@
 # Pré-processamento — RodoviaVis
 
 Scripts responsáveis por transformar as bases brutas da PRF em dados
-prontos para os *layouts* em D3.js. Devem ser executados nesta ordem.
-
-## 1. `inspecionar_bases.py`
-
-Lê os três arquivos originais em `data/raw/` e gera um diagnóstico
-completo (linhas, colunas, período, duplicidade de `id`, valores
-ausentes, tipos de dados, categorias e possíveis diferenças de grafia
-entre os anos). **Não altera nada em `data/raw/`.**
+prontos para os layouts em D3.js. Devem ser executados na ordem
+documentada neste arquivo.
 
 ## Ambiente Python
 
@@ -65,7 +59,7 @@ python preprocessing/inspecionar_bases.py
 ## Formato das bases originais
 * separador: ;;
 * codificação: latin1;
-* caminhos:
---------------data/raw/datatran2022.csv;
---------------data/raw/datatran2023.csv;
---------------data/raw/datatran2024.csv.
+* arquivos:
+  * data/raw/datatran2022.csv;
+  * data/raw/datatran2023.csv;
+  * data/raw/datatran2024.csv.

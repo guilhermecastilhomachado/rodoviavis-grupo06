@@ -2,7 +2,7 @@
 ========================================================================
 RELATORIO DE INSPECAO DAS BASES BRUTAS - RODOVIAVIS
 ========================================================================
-Gerado em: 17/07/2026 21:21:09
+Gerado em: 17/07/2026 22:03:22
 Script: preprocessing/inspecionar_bases.py
 Este relatorio e somente leitura: nenhum arquivo em data/raw/ foi alterado.
 
@@ -60,7 +60,7 @@ Categorias de causa_acidente: 71 valores distintos.
 Latitude / Longitude:
   - Formato original usa virgula decimal: sim
   - Latitudes ausentes ou nao numericas apos conversao: 0
-  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Longitudes ausentes ou nao numericas apos conversao: 0
   - Latitudes fora da faixa aproximada do Brasil: 0
   - Longitudes fora da faixa aproximada do Brasil: 0
   - Coordenadas exatamente (0, 0): 0
@@ -121,7 +121,7 @@ Categorias de causa_acidente: 75 valores distintos.
 Latitude / Longitude:
   - Formato original usa virgula decimal: sim
   - Latitudes ausentes ou nao numericas apos conversao: 0
-  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Longitudes ausentes ou nao numericas apos conversao: 0
   - Latitudes fora da faixa aproximada do Brasil: 0
   - Longitudes fora da faixa aproximada do Brasil: 0
   - Coordenadas exatamente (0, 0): 0
@@ -182,7 +182,7 @@ Categorias de causa_acidente: 69 valores distintos.
 Latitude / Longitude:
   - Formato original usa virgula decimal: nao
   - Latitudes ausentes ou nao numericas apos conversao: 0
-  - Longitudes ausentes ounao numericas apos conversao: 0
+  - Longitudes ausentes ou nao numericas apos conversao: 0
   - Latitudes fora da faixa aproximada do Brasil: 0
   - Longitudes fora da faixa aproximada do Brasil: 0
   - Coordenadas exatamente (0, 0): 0
@@ -247,8 +247,11 @@ Pontos que preparar_dados.py precisa tratar, com base nesta inspecao:
   2. Unificar o formato de latitude/longitude (virgula em 2022/2023, ponto em
      2024) antes de converter para numerico, usando a mesma logica de
      converter_coordenada() usada aqui.
-  3. Tratar os valores ausentes listados acima por coluna, especialmente em
-     classificacao_acidente (fica vazio quando nao ha vitimas registradas).
+  3. O texto literal 'NA' foi preservado como categoria em
+     classificacao_acidente. Consultar o dicionario da PRF antes de
+     decidir se o valor sera mantido como 'NA', renomeado para
+     'Nao informado' ou tratado de outra forma.
+     Nenhum campo vazio foi identificado nas tres bases.
   4. Revisar as variacoes de grafia de causa_acidente listadas nas secoes
      anteriores antes de gerar o agregado_causa_horario.csv, decidindo se
      serao unificadas.
