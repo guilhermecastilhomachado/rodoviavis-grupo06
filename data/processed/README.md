@@ -20,7 +20,7 @@ Rodoviária Federal nos anos de 2022, 2023 e 2024.
 - separador: vírgula;
 - codificação: UTF-8;
 - IDs únicos: 205.528;
-- tamanho aproximado: 71,32 MiB.
+- tamanho aproximado: 71,13 MiB.
 
 ### Quantidade de registros por ano
 
