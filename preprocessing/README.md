@@ -87,18 +87,28 @@ python preprocessing/preparar_dados.py
 
 - `data/processed/acidentes_2022_2024.csv`.
 
-## 3. Próxima etapa
+## 3. `gerar_agregados.py`
 
-O próximo script será responsável por gerar os arquivos agregados
-utilizados diretamente nas visualizações em D3.js.
+Gera os arquivos menores utilizados diretamente pelos layouts em
+D3.js, evitando o carregamento da base detalhada de 205.528 ocorrências
+no navegador.
 
-Arquivos previstos:
+Os arquivos temporais e contextuais preservam a UF e a região para permitir filtros globais e visualizações coordenadas.
 
-- `agregado_uf_ano.csv`;
-- `agregado_data.csv`;
-- `agregado_mes_ano.csv`;
-- `agregado_causa_horario.csv`;
-- `perfil_uf_ano.csv`.
+### Execução
+
+```powershell
+python preprocessing/gerar_agregados.py
+```
+
+### Saídas
+
+- `data/processed/agregado_uf_ano.csv`;
+- `data/processed/agregado_data_uf.csv`;
+- `data/processed/agregado_mes_uf.csv`;
+- `data/processed/agregado_causa_horario_uf.csv`;
+- `data/processed/perfil_uf_ano.csv`.
+
 
 ## Formato das bases originais
 
