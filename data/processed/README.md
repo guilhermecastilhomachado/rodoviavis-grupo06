@@ -61,10 +61,37 @@ agregados. Os layouts em D3.js deverão utilizar prioritariamente os
 arquivos agregados, pois são menores e mais adequados para carregamento
 no navegador.
 
-## Arquivos agregados previstos
+## Arquivos agregados
 
-- `agregado_uf_ano.csv`;
-- `agregado_data.csv`;
-- `agregado_mes_ano.csv`;
-- `agregado_causa_horario.csv`;
-- `perfil_uf_ano.csv`.
+O script `preprocessing/gerar_agregados.py` gera os seguintes arquivos:
+
+- `agregado_uf_ano.csv` — métricas anuais por UF e região, utilizado pelo mapa;
+- `agregado_data_uf.csv` — métricas diárias por UF, utilizado pelo calendário;
+- `agregado_mes_uf.csv` — métricas mensais por UF, utilizado pela linha temporal;
+- `agregado_causa_horario_uf.csv` — métricas por causa, faixa de horário e UF, utilizado pela matriz;
+- `perfil_uf_ano.csv` — perfil anual das UFs, utilizado pelo scatterplot.
+
+Os arquivos compartilham as métricas:
+
+- `total_acidentes`;
+- `total_graves_fatais`;
+- `total_mortos`;
+- `total_feridos_graves`;
+- `total_vitimas`;
+- `taxa_gravidade`.
+
+A taxa de gravidade é calculada por:
+
+```text
+total_graves_fatais / total_acidentes
+```
+
+### Dimensões dos arquivos
+
+| Arquivo | Linhas | Colunas | Finalidade |
+|---|---:|---:|---|
+| `agregado_uf_ano.csv` | 81 | 9 | Mapa e KPIs por UF |
+| `agregado_data_uf.csv` | 25.774 | 14 | Calendário |
+| `agregado_mes_uf.csv` | 972 | 11 | Linha temporal |
+| `agregado_causa_horario_uf.csv` | 12.631 | 11 | Matriz contextual |
+| `perfil_uf_ano.csv` | 81 | 9 | Scatterplot |
