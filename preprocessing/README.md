@@ -27,39 +27,102 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\.venv\Scripts\Activate.ps1
 ```
 
-1. inspecionar_bases.py
+A pasta `.venv` é local e não deve ser enviada ao repositório.
 
-Lê os três arquivos originais em data/raw/ e gera um diagnóstico
-completo:
+## 1. `inspecionar_bases.py`
 
-* quantidade de linhas e colunas;
-* período coberto;
-* duplicidade de IDs;
-* valores ausentes;
-* tipos identificados;
-* categorias;
-* diferenças entre os anos;
-* possíveis variações de grafia;
-* validação inicial de latitude e longitude.
+Lê os três arquivos originais em `data/raw/` e gera um diagnóstico
+da estrutura e da qualidade inicial dos dados.
 
-O script não altera os arquivos de data/raw/.
+### Principais verificações
 
-## Execução
+- quantidade de linhas e colunas;
+- período coberto;
+- duplicidade de IDs;
+- valores ausentes;
+- tipos identificados;
+- categorias existentes;
+- diferenças entre os anos;
+- possíveis variações de grafia;
+- validação inicial de latitude e longitude.
 
-Com o ambiente virtual ativado e a partir da raiz do projeto:
+O script não modifica os arquivos de `data/raw/`.
+
+### Execução
 
 ```powershell
 python preprocessing/inspecionar_bases.py
 ```
 
-## Saída
-* diagnóstico no terminal;
-* docs/relatorio-inspecao-dados.txt.
+### Saída
+
+- diagnóstico exibido no terminal;
+- `docs/relatorio-inspecao-dados.txt`.
+
+## 2. `preparar_dados.py`
+
+Unifica as bases de 2022, 2023 e 2024, padroniza os tipos, cria
+variáveis derivadas e gera a base detalhada tratada.
+
+### Principais transformações
+
+- normalização dos IDs;
+- conversão de latitude, longitude e quilômetro;
+- padronização das variáveis de contagem;
+- correção do nome da variável meteorológica;
+- preservação da causa original;
+- padronização de grafias confirmadas;
+- criação de variáveis temporais;
+- criação de indicadores de gravidade;
+- inclusão da região brasileira de cada UF;
+- validação da integridade antes da gravação.
+
+### Execução
+
+```powershell
+python preprocessing/preparar_dados.py
+```
+
+### Saída
+
+- `data/processed/acidentes_2022_2024.csv`.
+
+## 3. `gerar_agregados.py`
+
+Gera os arquivos menores utilizados diretamente pelos layouts em
+D3.js, evitando o carregamento da base detalhada de 205.528 ocorrências
+no navegador.
+
+Os arquivos temporais e contextuais preservam a UF e a região para permitir filtros globais e visualizações coordenadas.
+
+### Execução
+
+```powershell
+python preprocessing/gerar_agregados.py
+```
+
+### Saídas
+
+- `data/processed/agregado_uf_ano.csv`;
+- `data/processed/agregado_data_uf.csv`;
+- `data/processed/agregado_mes_uf.csv`;
+- `data/processed/agregado_causa_horario_uf.csv`;
+- `data/processed/perfil_uf_ano.csv`.
+
 
 ## Formato das bases originais
-* separador: ;;
-* codificação: latin1;
-* arquivos:
-  * data/raw/datatran2022.csv;
-  * data/raw/datatran2023.csv;
-  * data/raw/datatran2024.csv.
+
+- separador: `;`;
+- codificação: `latin1`;
+- arquivos:
+  - `data/raw/datatran2022.csv`;
+  - `data/raw/datatran2023.csv`;
+  - `data/raw/datatran2024.csv`.
+
+## Formato da base tratada
+
+- separador: `,`;
+- codificação: `UTF-8`;
+- período: 2022–2024;
+- unidade de análise: uma ocorrência de acidente por linha;
+- arquivo: `data/processed/acidentes_2022_2024.csv`.
