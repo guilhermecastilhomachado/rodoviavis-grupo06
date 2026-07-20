@@ -1,0 +1,40 @@
+.calendario-ano-rotulo {
+    font-size: 14px;
+    font-weight: 700;
+    fill: #495057;
+}
+
+.calendario-dia-rotulo {
+    font-size: 10px;
+    fill: #adb5bd;
+}
+
+.calendario-mes-rotulo {
+    font-size: 11px;
+    font-weight: 600;
+    fill: #6c757d;
+}
+
+.calendario-mes-borda {
+    fill: none;
+    stroke: #212529;
+    stroke-width: 1.5px;
+    pointer-events: none;
+}
+
+.calendario-dia {
+    stroke: #ffffff;
+    stroke-width: 1px;
+    cursor: crosshair;
+    transition: opacity 0.2s;
+}
+
+.calendario-dia:hover {
+    stroke: #000000;
+    stroke-width: 2px;
+}
+
+.calendario-dia--fim-semana {
+    rx: 4px;
+    ry: 4px;
+}

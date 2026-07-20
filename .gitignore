@@ -1,5 +1,6 @@
 # Configurações locais
 .vscode/
+.idea/
 
 # Python
 __pycache__/
