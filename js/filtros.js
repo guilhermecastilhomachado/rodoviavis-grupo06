@@ -66,7 +66,14 @@ const Filtros = {
 
 function tratarMudancaDeAno(event) {
     const valorSelecionado = event.currentTarget.value;
-    definirFiltro('ano', valorSelecionado === '' ? null : +valorSelecionado);
+
+    definirFiltros({
+        ano: valorSelecionado === ''
+            ? null
+            : +valorSelecionado,
+        dataInicial: null,
+        dataFinal: null
+    });
 }
 
 function tratarMudancaDeUf(event) {
