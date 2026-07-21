@@ -1,3 +1,21 @@
+#calendario-container {
+    min-width: 0;
+}
+
+.calendario-area-rolagem {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.5rem;
+}
+
+.calendario-svg {
+    display: block;
+    width: 100%;
+    min-width: 760px;
+    height: auto;
+}
+
 .calendario-ano-rotulo {
     font-size: 14px;
     font-weight: 700;
@@ -6,35 +24,74 @@
 
 .calendario-dia-rotulo {
     font-size: 10px;
-    fill: #adb5bd;
+    fill: #94a3b8;
 }
 
 .calendario-mes-rotulo {
     font-size: 11px;
     font-weight: 600;
-    fill: #6c757d;
+    fill: #64748b;
 }
 
 .calendario-mes-borda {
     fill: none;
-    stroke: #212529;
+    stroke: #334155;
     stroke-width: 1.5px;
     pointer-events: none;
 }
 
-.calendario-dia {
-    stroke: #ffffff;
+.calendario-celula {
+    cursor: pointer;
+    stroke: rgba(15, 23, 42, 0.18);
     stroke-width: 1px;
-    cursor: crosshair;
-    transition: opacity 0.2s;
+    transition:
+        opacity 120ms ease,
+        stroke-width 120ms ease;
 }
 
-.calendario-dia:hover {
-    stroke: #000000;
+.calendario-celula:hover {
+    stroke: #0f172a;
     stroke-width: 2px;
 }
 
-.calendario-dia--fim-semana {
-    rx: 4px;
-    ry: 4px;
+.calendario-celula:focus {
+    outline: none;
+}
+
+.calendario-celula:focus-visible {
+    stroke: #2563eb;
+    stroke-width: 3px;
+}
+
+.calendario-celula-sem-dados {
+    cursor: default;
+    fill: #f1f5f9;
+    pointer-events: none;
+}
+
+.calendario-celula-selecionada {
+    stroke: #111827;
+    stroke-width: 3px;
+}
+
+.calendario-celula-fora-periodo {
+    opacity: 0.28;
+}
+
+.calendario-legenda-titulo {
+    fill: #334155;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.calendario-legenda-min,
+.calendario-legenda-max {
+    fill: #64748b;
+    font-size: 11px;
+}
+
+@media (max-width: 768px) {
+    .calendario-svg {
+        min-width: 700px;
+    }
 }
