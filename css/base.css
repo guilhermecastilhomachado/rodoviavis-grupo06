@@ -25,14 +25,63 @@ h1, h2 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.tooltip {
+#tooltip-global {
     position: absolute;
-    background: rgba(33, 37, 41, 0.9);
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 13px;
-    pointer-events: none;
     z-index: 1000;
+    max-width: 280px;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0.5rem;
+    background: rgba(15, 23, 42, 0.96);
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.45;
+    pointer-events: none;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Quando o utils.js remove o atributo 'hidden', a tooltip aparece */
+#tooltip-global[hidden] {
+    display: none;
+}
+
+/* Estado vazio compartilhado */
+.mensagem-vazia,
+.estado-vazio {
+    display: grid;
+    place-items: center;
+    min-height: 180px;
+    padding: 1.5rem;
+    border: 1px dashed #cbd5e1;
+    border-radius: 0.75rem;
+    color: #64748b;
+    text-align: center;
+}
+
+/* Conteudo disponível apenas para leitores de tela */
+.somente-leitor-tela {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* Destaque global de foco */
+:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.45);
+    outline-offset: 2px;
+}
+
+/* Contêineres responsivos */
+.painel-visualizacao {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.painel-visualizacao svg {
+    max-width: 100%;
 }
