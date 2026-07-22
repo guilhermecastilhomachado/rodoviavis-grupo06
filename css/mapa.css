@@ -1,0 +1,80 @@
+/*
+ * RodoviaVis — mapa.css
+ * Estiliza o mapa coroplético criado por js/mapa.js dentro de
+ * #mapa-container. As regras de elementos do SVG ficam escopadas
+ * com #mapa-container para não vazar para outros módulos.
+ */
+
+#mapa-container .mapa-ferramentas {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+}
+
+#mapa-container .mapa-zoom-resetar {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+#mapa-container .mapa-zoom-resetar:hover {
+    background: #f1f5f9;
+}
+
+#mapa-container .mapa-area-rolagem {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#mapa-container .mapa-svg {
+    display: block;
+    width: 100%;
+    min-width: 700px;
+    height: auto;
+}
+
+#mapa-container .mapa-estado {
+    stroke: #ffffff;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+
+#mapa-container .mapa-estado:hover {
+    stroke: #1b2733;
+    stroke-width: 1.5px;
+}
+
+#mapa-container .mapa-estado-selecionado {
+    stroke: #1b2733;
+    stroke-width: 2.5px;
+}
+
+#mapa-container .mapa-legenda-titulo {
+    font-size: 0.75rem;
+    font-weight: 600;
+    fill: #334155;
+}
+
+#mapa-container .mapa-legenda-eixo text {
+    font-size: 0.65rem;
+    fill: #64748b;
+}
+
+#mapa-container .mapa-legenda-eixo .domain,
+#mapa-container .mapa-legenda-eixo line {
+    stroke: #94a3b8;
+}
+
+#mapa-container .mapa-estado-sem-dados {
+    cursor: default;
+}
+
+#mapa-container .mapa-estado:focus-visible {
+    stroke: #2563eb;
+    stroke-width: 3px;
+    outline: none;
+}
