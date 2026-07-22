@@ -114,15 +114,6 @@
         <section id="matriz-container" class="painel">
             <h2>Padrões contextuais</h2>
 
-            <!--
-                Controles locais da Matriz/Heatmap (Geovanna). Os eixos são
-                fixos — causa do acidente (colunas) x faixa horária
-                (linhas) —, as únicas duas dimensões categóricas de
-                data/processed/agregado_causa_horario_uf.csv que fazem
-                sentido cruzar num heatmap. A cor das células usa a mesma
-                métrica do filtro global (#filtro-metrica), então a matriz
-                não tem seletor de métrica próprio.
-            -->
             <div class="controles-painel">
                 <div class="grupo-controle">
                     <label for="heatmap-top-causas">Principais causas:</label>
@@ -143,7 +134,6 @@
                 </div>
             </div>
 
-            <!-- Divs onde o D3 injeta o gráfico e a legenda -->
             <div id="heatmap" class="heatmap-scroll-area"></div>
             <div id="heatmap-legenda"></div>
         </section>
@@ -157,16 +147,8 @@
 
     <div id="tooltip-global" class="tooltip" role="tooltip" hidden></div>
 
-    <!-- Biblioteca D3 v7 armazenada localmente para execução offline. -->
     <script src="lib/d3.v7.min.js"></script>
 
-    <!--
-        A ordem abaixo importa. utils.js faz "d3.select('#tooltip-global')"
-        assim que é carregado, então a div já precisa existir acima (e existe,
-        já que os scripts estão no final do body). state.js e utils.js vêm
-        antes de qualquer módulo de layout, porque todos dependem deles.
-        app.js é sempre o último, porque ele é quem inicializa os módulos.
-    -->
     <script src="js/state.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/filtros.js"></script>

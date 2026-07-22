@@ -1,10 +1,6 @@
 /**
  * Estilos da Matriz (Heatmap) - RodoviaVis
  * Responsável: Geovanna David Gonzaga
- *
- * O estado vazio (.mensagem-vazia) e a tooltip (#tooltip-global) já
- * são estilizados globalmente em base.css — este arquivo não duplica
- * essas regras, só cuida do que é específico da matriz.
  */
 
 /* Container Principal do Painel de Matriz */

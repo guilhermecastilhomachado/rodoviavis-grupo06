@@ -1,21 +1,6 @@
 /*
  * RodoviaVis — matriz.js
  * Responsável: Geovanna David Gonzaga (análise contextual e gravidade)
- *
- * Heatmap matricial fixo: causa do acidente (colunas, na horizontal)
- * x faixa horária (linhas), a partir de
- * data/processed/agregado_causa_horario_uf.csv. A cor de cada célula
- * usa a mesma métrica do filtro global (#filtro-metrica, em
- * state.js/filtros.js) — total_acidentes, total_graves_fatais,
- * total_mortos, total_feridos_graves, total_vitimas ou
- * taxa_gravidade —, então a matriz não precisa de seletor de métrica
- * próprio.
- *
- * Os dois controles locais só decidem QUAIS causas aparecem (Top N
- * pela métrica atual) e em que ORDEM (por valor ou alfabética). Um
- * clique numa célula ou num rótulo usa os mesmos nomes de filtro já
- * combinados em state.js (causa, faixaHorario), então outros módulos
- * (mapa, KPIs, timeline) também reagem ao drill-down feito aqui.
  */
 
 const Matriz = (function () {
@@ -37,8 +22,6 @@ const Matriz = (function () {
         }
     };
 
-    // Mesmos nomes de campo do <select id="filtro-metrica"> global —
-    // cada um já existe pronto no registro agregado por célula.
     const METRICAS = {
         total_acidentes: { rotulo: 'Total de acidentes', formatar: formatarNumero },
         total_graves_fatais: { rotulo: 'Acidentes graves ou fatais', formatar: formatarNumero },
@@ -65,13 +48,6 @@ const Matriz = (function () {
     };
 
     // ===== PREPARAÇÃO DOS DADOS =====
-    // O agregado tem "ano" e "uf" nas mesmas colunas que os filtros
-    // globais, então dá pra filtrar direto. Causa e faixa horária não
-    // entram aqui de propósito: são "donas" da própria matriz, e
-    // filtrá-las contra si mesma faria a matriz desaparecer assim que
-    // alguém clicasse numa célula (o mesmo motivo pelo qual o
-    // calendário de Tiago ignora dataInicial/dataFinal no próprio
-    // processamento).
 
     function filtrarPorAnoEUf(dados, filtros) {
         return dados.filter(function (registro) {
@@ -123,10 +99,6 @@ const Matriz = (function () {
         });
     }
 
-    // Soma corretamente por causa: métricas de contagem podem ser
-    // somadas direto, mas taxa_gravidade é uma razão e precisa ser
-    // recalculada a partir dos totais somados (nunca a média das
-    // taxas de cada faixa horária, que distorceria o resultado).
     function calcularValorPorCausa(mapaAgregado, campoMetrica) {
         const valores = new Map();
 
@@ -151,10 +123,6 @@ const Matriz = (function () {
         return valores;
     }
 
-    // Top N pela métrica atual primeiro, ordenação só depois — assim
-    // "Top 10 alfabética" mostra as 10 causas de maior valor, só que
-    // listadas em ordem alfabética, em vez de reordenar tudo e cortar
-    // as 10 primeiras em ordem alfabética (que não seriam as maiores).
     function selecionarCausas(mapaAgregado, campoMetrica) {
         const valores = calcularValorPorCausa(mapaAgregado, campoMetrica);
         let causas = Array.from(mapaAgregado.keys());
@@ -313,9 +281,7 @@ const Matriz = (function () {
         const valorMaximo = d3.max(valores) || 1;
         const escalaCor = d3.scaleSequential(CONFIG.interpoladorCor).domain([0, valorMaximo]);
 
-        // Cabeçalho das colunas (causas selecionadas pelo Top N,
-        // espalhadas na horizontal). Rotacionado na vertical porque o
-        // nome de uma causa não cabe na largura de uma coluna.
+
         ESTADO.svg.selectAll('text.rotulo-eixo-x')
             .data(categoriasX, function (d) { return d; })
             .join('text')
@@ -330,8 +296,7 @@ const Matriz = (function () {
             .on('mouseleave', esconderTooltip)
             .on('click', function (evento, d) { alternarFiltro('causa_acidente', d); });
 
-        // Cabeçalho das linhas (faixa horária: só 4 valores curtos e
-        // fixos, então cabem na horizontal sem precisar de rotação).
+        // Cabeçalho das linhas
         ESTADO.svg.selectAll('text.rotulo-eixo-y')
             .data(categoriasY, function (d) { return d; })
             .join('text')
@@ -344,9 +309,6 @@ const Matriz = (function () {
             .on('mouseleave', esconderTooltip)
             .on('click', function (evento, d) { alternarFiltro('faixa_horario', d); });
 
-        // Células: uma coluna por causa, cruzada com as 4 faixas
-        // horárias — inclusive combinações sem dados, que aparecem na
-        // cor neutra em vez de simplesmente sumirem.
         const celulasData = [];
         categoriasY.forEach(function (faixa, indiceY) {
             categoriasX.forEach(function (causa, indiceX) {
