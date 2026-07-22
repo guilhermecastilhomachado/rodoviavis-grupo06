@@ -1,0 +1,137 @@
+/**
+ * Estilos da Matriz (Heatmap) - RodoviaVis
+ * Responsável: Geovanna David Gonzaga
+ *
+ * O estado vazio (.mensagem-vazia) e a tooltip (#tooltip-global) já
+ * são estilizados globalmente em base.css — este arquivo não duplica
+ * essas regras, só cuida do que é específico da matriz.
+ */
+
+/* Container Principal do Painel de Matriz */
+#matriz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+/* Barra de Controles Locais */
+.controles-painel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.grupo-controle {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grupo-controle label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.grupo-controle select {
+  padding: 6px 10px;
+  font-size: 0.875rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #212529;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grupo-controle select:focus {
+  border-color: #4d90fe;
+  box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
+}
+
+/* Área com rolagem para o SVG do heatmap (muitas causas = muitas colunas) */
+.heatmap-scroll-area {
+  width: 100%;
+  max-height: 640px;
+  overflow: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+}
+
+/* Elementos do SVG do Heatmap */
+.matriz-svg {
+  display: block;
+  font-family: inherit;
+}
+
+.matriz-svg .rotulo-eixo-x,
+.matriz-svg .rotulo-eixo-y {
+  font-size: 11px;
+  fill: #333333;
+}
+
+.matriz-svg .rotulo-eixo-x {
+  text-anchor: start;
+  cursor: pointer;
+}
+
+.matriz-svg .rotulo-eixo-y {
+  text-anchor: end;
+  dominant-baseline: middle;
+  cursor: pointer;
+}
+
+.matriz-svg .rotulo-eixo-x.em-destaque,
+.matriz-svg .rotulo-eixo-y.em-destaque {
+  font-weight: 700;
+  fill: #000000;
+}
+
+/* Células da Matriz */
+.matriz-svg .celula {
+  cursor: pointer;
+  stroke: #ffffff;
+  stroke-width: 1px;
+  transition: opacity 0.15s ease, stroke 0.15s ease;
+}
+
+.matriz-svg .celula:hover {
+  stroke: #212529;
+  stroke-width: 2px;
+}
+
+.matriz-svg.tem-destaque .celula.esmaecida {
+  opacity: 0.25;
+}
+
+.matriz-svg .celula.selecionada {
+  stroke: #212529;
+  stroke-width: 2px;
+}
+
+/* Legenda de Cores */
+#heatmap-legenda {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 40px;
+  font-size: 0.8rem;
+  color: #495057;
+}
+
+.heatmap-legenda__gradiente {
+  width: 200px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid #ced4da;
+}

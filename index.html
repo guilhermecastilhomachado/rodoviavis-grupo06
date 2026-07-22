@@ -113,6 +113,39 @@
 
         <section id="matriz-container" class="painel">
             <h2>Padrões contextuais</h2>
+
+            <!--
+                Controles locais da Matriz/Heatmap (Geovanna). Os eixos são
+                fixos — causa do acidente (colunas) x faixa horária
+                (linhas) —, as únicas duas dimensões categóricas de
+                data/processed/agregado_causa_horario_uf.csv que fazem
+                sentido cruzar num heatmap. A cor das células usa a mesma
+                métrica do filtro global (#filtro-metrica), então a matriz
+                não tem seletor de métrica próprio.
+            -->
+            <div class="controles-painel">
+                <div class="grupo-controle">
+                    <label for="heatmap-top-causas">Principais causas:</label>
+                    <select id="heatmap-top-causas">
+                        <option value="5">Top 5</option>
+                        <option value="10" selected>Top 10</option>
+                        <option value="15">Top 15</option>
+                        <option value="0">Todas</option>
+                    </select>
+                </div>
+
+                <div class="grupo-controle">
+                    <label for="heatmap-ordem">Ordenação:</label>
+                    <select id="heatmap-ordem">
+                        <option value="valor">Maior valor da métrica</option>
+                        <option value="alfabetica">Alfabética</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Divs onde o D3 injeta o gráfico e a legenda -->
+            <div id="heatmap" class="heatmap-scroll-area"></div>
+            <div id="heatmap-legenda"></div>
         </section>
     </main>
 
