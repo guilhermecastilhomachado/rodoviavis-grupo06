@@ -129,9 +129,6 @@ function resetarFiltros() {
 // e pelo app.js para exibir a indicação de filtros ativos.
 function existeFiltroAtivo() {
     return Object.keys(filtrosIniciais).some(function (nome) {
-        if (nome === 'metrica') {
-            return false; // metrica sempre tem um valor; não conta como filtro ativo
-        }
-        return Estado.filtros[nome] !== null && Estado.filtros[nome] !== undefined;
+        return !Object.is(Estado.filtros[nome], filtrosIniciais[nome]);
     });
 }

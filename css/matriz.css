@@ -3,131 +3,131 @@
  * Responsável: Geovanna David Gonzaga
  */
 
-/* Container Principal do Painel de Matriz */
 #matriz-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
 }
 
-/* Barra de Controles Locais */
-.controles-painel {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  align-items: flex-end;
-  background-color: #f8f9fa;
-  padding: 12px 16px;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
+#matriz-container .controles-painel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.75rem;
+    background: var(--cor-superficie-suave);
 }
 
-.grupo-controle {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+#matriz-container .grupo-controle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
-.grupo-controle label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #495057;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+#matriz-container .grupo-controle label {
+    color: #475569;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
-.grupo-controle select {
-  padding: 6px 10px;
-  font-size: 0.875rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #212529;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+#matriz-container .grupo-controle select {
+    min-height: 40px;
+    padding: 0.5rem 2rem 0.5rem 0.65rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.6rem;
+    background: #ffffff;
+    color: var(--cor-texto);
+    cursor: pointer;
 }
 
-.grupo-controle select:focus {
-  border-color: #4d90fe;
-  box-shadow: 0 0 0 2px rgba(77, 144, 254, 0.2);
+#matriz-container .heatmap-scroll-area {
+    width: 100%;
+    max-height: 640px;
+    overflow: auto;
+    border: 1px solid var(--cor-borda);
+    border-radius: 0.75rem;
+    background: #ffffff;
 }
 
-/* Área com rolagem para o SVG do heatmap (muitas causas = muitas colunas) */
-.heatmap-scroll-area {
-  width: 100%;
-  max-height: 640px;
-  overflow: auto;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
+#matriz-container .matriz-svg {
+    display: block;
+    font-family: inherit;
 }
 
-/* Elementos do SVG do Heatmap */
-.matriz-svg {
-  display: block;
-  font-family: inherit;
+#matriz-container .matriz-svg .rotulo-eixo-x,
+#matriz-container .matriz-svg .rotulo-eixo-y {
+    fill: #334155;
+    font-size: 11px;
 }
 
-.matriz-svg .rotulo-eixo-x,
-.matriz-svg .rotulo-eixo-y {
-  font-size: 11px;
-  fill: #333333;
+#matriz-container .matriz-svg .rotulo-eixo-x {
+    text-anchor: start;
+    cursor: pointer;
 }
 
-.matriz-svg .rotulo-eixo-x {
-  text-anchor: start;
-  cursor: pointer;
+#matriz-container .matriz-svg .rotulo-eixo-y {
+    text-anchor: end;
+    dominant-baseline: middle;
+    cursor: pointer;
 }
 
-.matriz-svg .rotulo-eixo-y {
-  text-anchor: end;
-  dominant-baseline: middle;
-  cursor: pointer;
+#matriz-container .matriz-svg .rotulo-eixo-x.em-destaque,
+#matriz-container .matriz-svg .rotulo-eixo-y.em-destaque {
+    fill: #0f172a;
+    font-weight: 800;
 }
 
-.matriz-svg .rotulo-eixo-x.em-destaque,
-.matriz-svg .rotulo-eixo-y.em-destaque {
-  font-weight: 700;
-  fill: #000000;
+#matriz-container .matriz-svg .rotulo-eixo-x:focus-visible,
+#matriz-container .matriz-svg .rotulo-eixo-y:focus-visible,
+#matriz-container .matriz-svg .celula:focus-visible {
+    outline: none;
+    stroke: #2563eb;
+    stroke-width: 3px;
 }
 
-/* Células da Matriz */
-.matriz-svg .celula {
-  cursor: pointer;
-  stroke: #ffffff;
-  stroke-width: 1px;
-  transition: opacity 0.15s ease, stroke 0.15s ease;
+#matriz-container .matriz-svg .celula {
+    cursor: pointer;
+    stroke: #ffffff;
+    stroke-width: 1px;
+    transition: opacity 0.15s ease, stroke 0.15s ease;
 }
 
-.matriz-svg .celula:hover {
-  stroke: #212529;
-  stroke-width: 2px;
+#matriz-container .matriz-svg .celula:hover {
+    stroke: #0f172a;
+    stroke-width: 2px;
 }
 
-.matriz-svg.tem-destaque .celula.esmaecida {
-  opacity: 0.25;
+#matriz-container .matriz-svg.tem-destaque .celula.esmaecida {
+    opacity: 0.25;
 }
 
-.matriz-svg .celula.selecionada {
-  stroke: #212529;
-  stroke-width: 2px;
+#matriz-container .matriz-svg .celula.selecionada {
+    stroke: #0f172a;
+    stroke-width: 2.5px;
 }
 
-/* Legenda de Cores */
+#matriz-container .matriz-svg .celula-sem-dados {
+    cursor: default;
+}
+
 #heatmap-legenda {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  min-height: 40px;
-  font-size: 0.8rem;
-  color: #495057;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.65rem;
+    min-height: 40px;
+    color: #475569;
+    font-size: 0.8rem;
 }
 
-.heatmap-legenda__gradiente {
-  width: 200px;
-  height: 12px;
-  border-radius: 3px;
-  border: 1px solid #ced4da;
+#heatmap-legenda .heatmap-legenda__gradiente {
+    width: min(200px, 42vw);
+    height: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
 }
