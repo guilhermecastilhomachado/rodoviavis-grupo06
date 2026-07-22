@@ -2,10 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
+    >
+    <meta
+        name="description"
+        content="RodoviaVis: sistema interativo para análise de acidentes em rodovias federais brasileiras entre 2022 e 2024."
     >
 
     <title>RodoviaVis — Acidentes em Rodovias Federais</title>
@@ -20,120 +23,209 @@
 </head>
 
 <body>
+    <a class="link-pular" href="#conteudo-principal">Pular para as visualizações</a>
+
     <header class="cabecalho">
-        <div>
-            <p class="cabecalho__identificacao">Grupo 06</p>
+        <div class="layout-container cabecalho__conteudo">
+            <div>
+                <p class="cabecalho__identificacao">Grupo 06 · Visualização Computacional</p>
+                <h1>RodoviaVis</h1>
+                <p class="cabecalho__descricao">
+                    Sistema de análise visual de padrões e gravidade em acidentes
+                    nas rodovias federais brasileiras entre 2022 e 2024.
+                </p>
+            </div>
 
-            <h1>RodoviaVis</h1>
-
-            <p>
-                Sistema de análise visual de padrões e gravidade em
-                acidentes nas rodovias federais brasileiras entre
-                2022 e 2024.
-            </p>
+            <div class="cabecalho__periodo" aria-label="Período analisado">
+                <span>Base PRF</span>
+                <strong>2022–2024</strong>
+            </div>
         </div>
     </header>
 
-    <section id="filtros-globais" aria-label="Controles globais do sistema">
-        <h2 class="filtros-globais__titulo">Filtros e métricas</h2>
-
-        <div class="filtros-globais__grupo">
-            <label for="filtro-ano">Ano</label>
-            <select id="filtro-ano">
-                <option value="">Todos</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-            </select>
+    <section
+        id="filtros-globais"
+        class="layout-container painel painel--controles"
+        aria-labelledby="titulo-filtros"
+    >
+        <div class="painel__cabecalho painel__cabecalho--controles">
+            <div>
+                <h2 id="titulo-filtros" class="filtros-globais__titulo">Filtros e métricas</h2>
+                <p class="painel__descricao">
+                    Combine os controles abaixo e observe a atualização coordenada das visualizações.
+                </p>
+            </div>
         </div>
 
-        <div class="filtros-globais__grupo">
-            <label for="filtro-uf">UF</label>
-            <select id="filtro-uf">
-                <option value="">Todas</option>
-                <option value="AC">AC</option>
-                <option value="AL">AL</option>
-                <option value="AM">AM</option>
-                <option value="AP">AP</option>
-                <option value="BA">BA</option>
-                <option value="CE">CE</option>
-                <option value="DF">DF</option>
-                <option value="ES">ES</option>
-                <option value="GO">GO</option>
-                <option value="MA">MA</option>
-                <option value="MG">MG</option>
-                <option value="MS">MS</option>
-                <option value="MT">MT</option>
-                <option value="PA">PA</option>
-                <option value="PB">PB</option>
-                <option value="PE">PE</option>
-                <option value="PI">PI</option>
-                <option value="PR">PR</option>
-                <option value="RJ">RJ</option>
-                <option value="RN">RN</option>
-                <option value="RO">RO</option>
-                <option value="RR">RR</option>
-                <option value="RS">RS</option>
-                <option value="SC">SC</option>
-                <option value="SE">SE</option>
-                <option value="SP">SP</option>
-                <option value="TO">TO</option>
-            </select>
+        <div class="filtros-globais__campos">
+            <div class="filtros-globais__grupo">
+                <label for="filtro-ano">Ano</label>
+                <select id="filtro-ano">
+                    <option value="">Todos</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+
+            <div class="filtros-globais__grupo">
+                <label for="filtro-uf">UF</label>
+                <select id="filtro-uf">
+                    <option value="">Todas</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AM">AM</option>
+                    <option value="AP">AP</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MG">MG</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="PR">PR</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="RS">RS</option>
+                    <option value="SC">SC</option>
+                    <option value="SE">SE</option>
+                    <option value="SP">SP</option>
+                    <option value="TO">TO</option>
+                </select>
+            </div>
+
+            <div class="filtros-globais__grupo filtros-globais__grupo--metrica">
+                <label for="filtro-metrica">Métrica</label>
+                <select id="filtro-metrica">
+                    <option value="total_acidentes">Total de acidentes</option>
+                    <option value="total_graves_fatais">Acidentes graves ou fatais</option>
+                    <option value="total_mortos">Mortos</option>
+                    <option value="total_feridos_graves">Feridos graves</option>
+                    <option value="total_vitimas">Total de vítimas</option>
+                    <option value="taxa_gravidade">Taxa de gravidade</option>
+                </select>
+            </div>
+
+            <button id="filtro-limpar" class="botao-secundario" type="button">
+                Restaurar visualização
+            </button>
         </div>
 
-        <div class="filtros-globais__grupo">
-            <label for="filtro-metrica">Métrica</label>
-            <select id="filtro-metrica">
-                <option value="total_acidentes">Total de acidentes</option>
-                <option value="total_graves_fatais">Acidentes graves ou fatais</option>
-                <option value="total_mortos">Mortos</option>
-                <option value="total_feridos_graves">Feridos graves</option>
-                <option value="total_vitimas">Total de vítimas</option>
-                <option value="taxa_gravidade">Taxa de gravidade</option>
-            </select>
-        </div>
-
-        <button id="filtro-limpar" type="button">Restaurar visualização</button>
+        <p class="instrucoes-interacao">
+            Clique em estados, pontos, dias ou células para filtrar. Clique novamente para remover a seleção.
+        </p>
     </section>
 
-    <section id="painel-kpis" aria-label="Indicadores gerais"></section>
+    <p
+        id="detalhes-selecao"
+        class="layout-container detalhes-selecao"
+        role="status"
+        aria-live="polite"
+    ></p>
 
-    <main class="dashboard">
-        <section id="mapa-container" class="painel">
-            <h2>Distribuição geográfica</h2>
+    <section id="painel-kpis" class="layout-container" aria-label="Indicadores gerais"></section>
+
+    <section id="timeline-container" class="layout-container painel painel-visualizacao">
+        <div class="painel__cabecalho">
+            <div>
+                <h2>Seleção do período</h2>
+                <p class="painel__descricao">
+                    Arraste sobre a linha temporal para restringir o intervalo analisado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <main id="conteudo-principal" class="layout-container dashboard">
+        <section id="mapa-container" class="painel painel--metade painel-visualizacao">
+            <div class="painel__cabecalho">
+                <div>
+                    <h2>Distribuição geográfica</h2>
+                    <p class="painel__descricao">
+                        Onde se concentram os acidentes e os indicadores de gravidade?
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <section id="scatterplot-container" class="painel">
-            <h2>Perfil de risco</h2>
+        <section id="scatterplot-container" class="painel painel--metade painel-visualizacao">
+            <div class="painel__cabecalho">
+                <div>
+                    <h2>Perfil de risco</h2>
+                    <p class="painel__descricao">
+                        Quais UFs combinam maior volume de acidentes e maior gravidade?
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <section id="calendario-container" class="painel">
-            <h2>Padrões temporais</h2>
+        <section id="calendario-container" class="painel painel--largura-total painel-visualizacao">
+            <div class="painel__cabecalho">
+                <div>
+                    <h2>Padrões temporais</h2>
+                    <p class="painel__descricao">
+                        Em quais dias surgem picos e recorrências ao longo dos anos?
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <section id="matriz-container" class="painel">
-            <h2>Padrões contextuais</h2>
+        <section id="matriz-container" class="painel painel--largura-total painel-visualizacao">
+            <div class="painel__cabecalho">
+                <div>
+                    <h2>Padrões contextuais</h2>
+                    <p class="painel__descricao">
+                        Quais causas predominam em cada faixa horária?
+                    </p>
+                </div>
+            </div>
+
+            <p id="matriz-nota-temporal" class="painel__nota" hidden>
+                O recorte diário da linha temporal não é aplicado à matriz porque o agregado contextual possui granularidade anual.
+            </p>
+
+            <div class="controles-painel">
+                <div class="grupo-controle">
+                    <label for="heatmap-top-causas">Principais causas</label>
+                    <select id="heatmap-top-causas">
+                        <option value="5">Top 5</option>
+                        <option value="10" selected>Top 10</option>
+                        <option value="15">Top 15</option>
+                        <option value="0">Todas</option>
+                    </select>
+                </div>
+
+                <div class="grupo-controle">
+                    <label for="heatmap-ordem">Ordenação</label>
+                    <select id="heatmap-ordem">
+                        <option value="valor">Maior valor da métrica</option>
+                        <option value="alfabetica">Alfabética</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="heatmap" class="heatmap-scroll-area"></div>
+            <div id="heatmap-legenda"></div>
         </section>
     </main>
 
-    <section id="timeline-container" class="painel">
-        <h2>Seleção do período</h2>
-    </section>
-
-    <p id="detalhes-selecao" class="detalhes-selecao" role="status" aria-live="polite"></p>
+    <footer class="rodape">
+        <div class="layout-container">
+            <p>RodoviaVis · Grupo 06 · Dados Abertos da Polícia Rodoviária Federal</p>
+        </div>
+    </footer>
 
     <div id="tooltip-global" class="tooltip" role="tooltip" hidden></div>
 
-    <!-- Biblioteca D3 v7 armazenada localmente para execução offline. -->
     <script src="lib/d3.v7.min.js"></script>
-
-    <!--
-        A ordem abaixo importa. utils.js faz "d3.select('#tooltip-global')"
-        assim que é carregado, então a div já precisa existir acima (e existe,
-        já que os scripts estão no final do body). state.js e utils.js vêm
-        antes de qualquer módulo de layout, porque todos dependem deles.
-        app.js é sempre o último, porque ele é quem inicializa os módulos.
-    -->
     <script src="js/state.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/filtros.js"></script>

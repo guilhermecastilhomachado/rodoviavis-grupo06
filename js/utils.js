@@ -168,3 +168,76 @@ function normalizarTexto(texto) {
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '');
 }
+
+// ===== AGREGAÇÃO POR UF =====
+// Usada por mapa.js e scatterplot.js, que precisam do mesmo
+// agrupamento a partir de Dados.porDataUf (filtra pelo estado global
+// e soma por UF). Fica aqui, e não duplicada nos dois módulos,
+// porque os dois precisam exatamente da mesma conta.
+
+function agregarPorUf(dados, filtros) {
+    const filtrados = filtrarPorEstado(dados, filtros);
+
+    return new Map(
+        d3.rollups(
+            filtrados,
+            function (registros) {
+                const totalAcidentes = d3.sum(registros, function (d) { return d.total_acidentes; });
+                const totalGravesFatais = d3.sum(registros, function (d) { return d.total_graves_fatais; });
+
+                return {
+                    total_acidentes: totalAcidentes,
+                    total_graves_fatais: totalGravesFatais,
+                    total_mortos: d3.sum(registros, function (d) { return d.total_mortos; }),
+                    total_feridos_graves: d3.sum(registros, function (d) { return d.total_feridos_graves; }),
+                    total_vitimas: d3.sum(registros, function (d) { return d.total_vitimas; }),
+                    // recalculada a partir dos totais do grupo, nunca somada
+                    // nem tirada a média a partir das taxas que já vinham
+                    // prontas por linha (mesma regra do kpis.js/timeline.js).
+                    taxa_gravidade: totalAcidentes > 0 ? (totalGravesFatais / totalAcidentes) : 0,
+                    regiao: registros[0].regiao
+                };
+            },
+            function (d) { return d.uf; }
+        )
+    );
+}
+
+// ===== CONFIGURAÇÃO COMPARTILHADA DE MÉTRICAS =====
+// Nomes oficiais das colunas dos CSVs (nunca traduzidos para nomes
+// curtos como "acidentes" ou "taxa"), com o rótulo e o formatador
+// corretos de cada uma. Usada por qualquer módulo que precise
+// respeitar o filtro global de métrica (mapa, timeline...).
+
+const CONFIGURACAO_METRICAS = {
+    total_acidentes: {
+        titulo: 'Total de acidentes',
+        campo: 'total_acidentes',
+        formato: function (valor) { return formatarNumero(valor); }
+    },
+    total_graves_fatais: {
+        titulo: 'Acidentes graves ou fatais',
+        campo: 'total_graves_fatais',
+        formato: function (valor) { return formatarNumero(valor); }
+    },
+    total_mortos: {
+        titulo: 'Mortos',
+        campo: 'total_mortos',
+        formato: function (valor) { return formatarNumero(valor); }
+    },
+    total_feridos_graves: {
+        titulo: 'Feridos graves',
+        campo: 'total_feridos_graves',
+        formato: function (valor) { return formatarNumero(valor); }
+    },
+    total_vitimas: {
+        titulo: 'Total de vítimas',
+        campo: 'total_vitimas',
+        formato: function (valor) { return formatarNumero(valor); }
+    },
+    taxa_gravidade: {
+        titulo: 'Taxa de gravidade',
+        campo: 'taxa_gravidade',
+        formato: function (valor) { return formatarPercentual(valor); }
+    }
+};

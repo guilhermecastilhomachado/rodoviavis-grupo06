@@ -1,0 +1,95 @@
+/*
+ * RodoviaVis — scatterplot.css
+ * Estiliza o gráfico de perfil de risco criado por js/scatterplot.js
+ * dentro de #scatterplot-container. As regras de elementos do SVG
+ * ficam escopadas com #scatterplot-container para não vazar para
+ * outros módulos.
+ */
+
+#scatterplot-container .scatterplot-area-rolagem {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#scatterplot-container .scatterplot-svg {
+    display: block;
+    width: 100%;
+    min-width: 620px;
+    height: auto;
+}
+
+#scatterplot-container .scatterplot-titulo {
+    font-size: 1rem;
+    font-weight: 700;
+    fill: #1b2733;
+}
+
+#scatterplot-container .scatterplot-rotulo-eixo {
+    font-size: 0.75rem;
+    fill: #475569;
+}
+
+#scatterplot-container .scatterplot-eixo text {
+    font-size: 0.7rem;
+    fill: #64748b;
+}
+
+#scatterplot-container .scatterplot-eixo .domain,
+#scatterplot-container .scatterplot-eixo line {
+    stroke: #94a3b8;
+}
+
+#scatterplot-container .scatterplot-linha-media {
+    stroke: #94a3b8;
+    stroke-dasharray: 5, 5;
+}
+
+#scatterplot-container .scatterplot-ponto {
+    stroke: none;
+    cursor: pointer;
+}
+
+#scatterplot-container .scatterplot-ponto:hover {
+    stroke: #1b2733;
+    stroke-width: 2px;
+}
+
+#scatterplot-container .scatterplot-ponto-selecionado {
+    stroke: #1b2733;
+    stroke-width: 2.5px;
+}
+
+#scatterplot-container .scatterplot-ponto-brush {
+    stroke: #1b2733;
+    stroke-width: 2px;
+    stroke-dasharray: 2, 2;
+}
+
+#scatterplot-container .scatterplot-legenda-regiao text,
+#scatterplot-container .scatterplot-legenda-raio text {
+    font-size: 0.7rem;
+    fill: #334155;
+}
+
+#scatterplot-container .scatterplot-legenda-raio-titulo {
+    font-weight: 600;
+}
+
+#scatterplot-container .scatterplot-brush .selection {
+    fill: #2f6fed;
+    fill-opacity: 0.1;
+    stroke: #2f6fed;
+}
+
+#scatterplot-container .scatterplot-legenda-raio circle {
+    fill: none;
+    stroke: #475569;
+    stroke-width: 1.25px;
+}
+
+#scatterplot-container .scatterplot-ponto:focus-visible {
+    stroke: #2563eb;
+    stroke-width: 3px;
+    outline: none;
+}
