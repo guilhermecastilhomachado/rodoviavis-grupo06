@@ -360,24 +360,30 @@ const Calendario = (function () {
         const chave = formatarChaveData(dataObj);
         const registro = mapaAno.get(chave);
 
-        // Não mostra tooltip em dias sem acidentes registrados
         if (!registro) return;
 
-        const local = filtros.uf ? filtros.uf : 'Brasil';
-        const valorFormatado = metricaConfig.formato(registro[metricaConfig.campo]);
+        const linhasHtml = [
+            `<strong>${formatarData(dataObj)}</strong>`
+        ];
 
-        const html = [
-            `<strong>${formatarData(dataObj)}</strong>`,
-            `Local: ${local}`,
-            `Métrica: ${metricaConfig.titulo}`,
-            `Valor: ${valorFormatado}`,
-            `Total de acidentes: ${formatarNumero(registro.total_acidentes)}`,
-            `Graves ou fatais: ${formatarNumero(registro.total_graves_fatais)}`,
-            `Mortos: ${formatarNumero(registro.total_mortos)}`,
-            `Taxa de gravidade: ${formatarPercentual(registro.taxa_gravidade)}`
-        ].join('<br>');
+        if (filtros.uf) {
+            linhasHtml.push(`Local: ${filtros.uf}`);
+        }
 
-        mostrarTooltip(html, evento);
+        const formatarLinhaMetrica = (rotulo, campo, valorFormatado) => {
+            const ehMetricaAtiva = metricaConfig.campo === campo;
+            const texto = `${rotulo}: ${valorFormatado}`;
+            return ehMetricaAtiva ? `<strong>${texto}</strong>` : texto;
+        };
+
+        linhasHtml.push(
+            formatarLinhaMetrica('Total de acidentes', 'total_acidentes', formatarNumero(registro.total_acidentes)),
+            formatarLinhaMetrica('Graves ou fatais', 'total_graves_fatais', formatarNumero(registro.total_graves_fatais)),
+            formatarLinhaMetrica('Mortos', 'total_mortos', formatarNumero(registro.total_mortos)),
+            formatarLinhaMetrica('Taxa de gravidade', 'taxa_gravidade', formatarPercentual(registro.taxa_gravidade))
+        );
+
+        mostrarTooltip(linhasHtml.join('<br>'), evento);
     }
 
     function manipularMouseMove(evento) {
