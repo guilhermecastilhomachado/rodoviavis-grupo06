@@ -173,7 +173,7 @@ Promise.all([
     Dados.porCausaHorarioUf = resultados[3];
     Dados.perfilUfAno = resultados[4];
 
-    console.log('RodoviaVis: dados carregados com sucesso.', Dados);
+    console.info('RodoviaVis: cinco conjuntos de dados carregados com sucesso.');
 
     inicializarModulos();
     inscreverEstado(atualizarDashboard);
@@ -238,7 +238,7 @@ function atualizarDashboard() {
 // no index.html, para leitores de tela também anunciarem a mudança.
 
 function atualizarIndicacaoFiltrosAtivos() {
-    const filtros = Estado.filtros;
+    const filtros = obterFiltros();
     const partes = [];
 
     if (filtros.ano !== null) partes.push('Ano: ' + filtros.ano);
@@ -250,9 +250,8 @@ function atualizarIndicacaoFiltrosAtivos() {
         partes.push('Período: ' + formatarData(filtros.dataInicial) + ' a ' + formatarData(filtros.dataFinal));
     }
 
-    const texto = partes.length ? 'Filtros ativos — ' + partes.join(' · ') : 'Nenhum filtro ativo.';
-
-    d3.select('#detalhes-selecao').text(texto);
+    d3.select('#detalhes-selecao')
+        .text(partes.length ? 'Filtros ativos — ' + partes.join(' · ') : 'Nenhum filtro ativo.');
 }
 
 // ===== ERRO DE CARREGAMENTO =====

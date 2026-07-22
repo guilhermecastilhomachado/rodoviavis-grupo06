@@ -162,6 +162,10 @@ const Matriz = (function () {
     }
 
     function manipularCliqueCelula(d) {
+        if (!d || !d.registro || d.registro.total_acidentes <= 0) {
+            return;
+        }
+
         const filtrosAtuais = obterFiltros();
         const causaJaAtiva = filtroAtivoIgual('causa_acidente', d.causa, filtrosAtuais);
         const faixaJaAtiva = filtroAtivoIgual('faixa_horario', d.faixa, filtrosAtuais);
@@ -170,6 +174,15 @@ const Matriz = (function () {
             causa: causaJaAtiva && faixaJaAtiva ? null : d.causa,
             faixaHorario: causaJaAtiva && faixaJaAtiva ? null : d.faixa
         });
+    }
+
+    function tratarAtivacaoPorTeclado(evento, acao) {
+        if (evento.key !== 'Enter' && evento.key !== ' ') {
+            return;
+        }
+
+        evento.preventDefault();
+        acao();
     }
 
     // ===== CONTROLES LOCAIS =====
@@ -194,8 +207,12 @@ const Matriz = (function () {
 
     function construirBaseSVG() {
         ESTADO.svg = d3.select('#heatmap')
-            .append('svg')
-            .attr('class', 'matriz-svg');
+            .selectAll('svg.matriz-svg')
+            .data([null])
+            .join('svg')
+            .attr('class', 'matriz-svg')
+            .attr('role', 'group')
+            .attr('aria-label', 'Matriz de causas de acidentes por faixa horária.');
     }
 
     function manipularMouseOverCelula(evento, d) {
@@ -286,6 +303,15 @@ const Matriz = (function () {
             .data(categoriasX, function (d) { return d; })
             .join('text')
             .attr('class', 'rotulo-eixo-x')
+            .attr('tabindex', 0)
+            .attr('role', 'button')
+            .attr('aria-pressed', function (d) {
+                return filtroAtivoIgual('causa_acidente', d, filtros) ? 'true' : 'false';
+            })
+            .attr('aria-label', function (d) {
+                const acao = filtroAtivoIgual('causa_acidente', d, filtros) ? 'Remover filtro' : 'Filtrar';
+                return acao + ' pela causa ' + d + '.';
+            })
             .attr('transform', function (d, i) {
                 const x = CONFIG.margem.esquerda + i * tamanhoCelula + tamanhoCelula / 2;
                 return 'translate(' + x + ',' + (CONFIG.margem.topo - 12) + ') rotate(-90)';
@@ -294,20 +320,39 @@ const Matriz = (function () {
             .on('mouseover', function (evento, d) { manipularMouseOverRotulo(evento, CAMPOS.causa_acidente.rotulo, d); })
             .on('mousemove', moverTooltip)
             .on('mouseleave', esconderTooltip)
-            .on('click', function (evento, d) { alternarFiltro('causa_acidente', d); });
+            .on('click', function (evento, d) { alternarFiltro('causa_acidente', d); })
+            .on('keydown', function (evento, d) {
+                tratarAtivacaoPorTeclado(evento, function () {
+                    alternarFiltro('causa_acidente', d);
+                });
+            });
 
         // Cabeçalho das linhas
         ESTADO.svg.selectAll('text.rotulo-eixo-y')
             .data(categoriasY, function (d) { return d; })
             .join('text')
             .attr('class', 'rotulo-eixo-y')
+            .attr('tabindex', 0)
+            .attr('role', 'button')
+            .attr('aria-pressed', function (d) {
+                return filtroAtivoIgual('faixa_horario', d, filtros) ? 'true' : 'false';
+            })
+            .attr('aria-label', function (d) {
+                const acao = filtroAtivoIgual('faixa_horario', d, filtros) ? 'Remover filtro' : 'Filtrar';
+                return acao + ' pela faixa horária ' + d + '.';
+            })
             .attr('x', CONFIG.margem.esquerda - 10)
             .attr('y', function (d, i) { return CONFIG.margem.topo + i * tamanhoCelula + tamanhoCelula / 2; })
             .text(function (d) { return d; })
             .on('mouseover', function (evento, d) { manipularMouseOverRotulo(evento, CAMPOS.faixa_horario.rotulo, d); })
             .on('mousemove', moverTooltip)
             .on('mouseleave', esconderTooltip)
-            .on('click', function (evento, d) { alternarFiltro('faixa_horario', d); });
+            .on('click', function (evento, d) { alternarFiltro('faixa_horario', d); })
+            .on('keydown', function (evento, d) {
+                tratarAtivacaoPorTeclado(evento, function () {
+                    alternarFiltro('faixa_horario', d);
+                });
+            });
 
         const celulasData = [];
         categoriasY.forEach(function (faixa, indiceY) {
@@ -328,7 +373,27 @@ const Matriz = (function () {
             .attr('class', function (d) {
                 const selecionada = filtroAtivoIgual('causa_acidente', d.causa, filtros) &&
                     filtroAtivoIgual('faixa_horario', d.faixa, filtros);
-                return 'celula' + (selecionada ? ' selecionada' : '');
+                const semDados = d.registro.total_acidentes <= 0;
+
+                return 'celula' +
+                    (selecionada ? ' selecionada' : '') +
+                    (semDados ? ' celula-sem-dados' : '');
+            })
+            .attr('tabindex', function (d) { return d.registro.total_acidentes > 0 ? 0 : -1; })
+            .attr('role', function (d) { return d.registro.total_acidentes > 0 ? 'button' : null; })
+            .attr('aria-pressed', function (d) {
+                const selecionada = filtroAtivoIgual('causa_acidente', d.causa, filtros) &&
+                    filtroAtivoIgual('faixa_horario', d.faixa, filtros);
+                return d.registro.total_acidentes > 0 ? String(selecionada) : null;
+            })
+            .attr('aria-label', function (d) {
+                if (d.registro.total_acidentes <= 0) {
+                    return 'Sem dados para ' + d.causa + ', ' + d.faixa + '.';
+                }
+
+                return d.causa + ', ' + d.faixa + '. ' +
+                    infoMetrica.rotulo + ': ' + infoMetrica.formatar(d.registro[campoMetrica]) + '. ' +
+                    'Pressione Enter para aplicar ou remover este filtro.';
             })
             .attr('x', function (d) { return CONFIG.margem.esquerda + d.indiceX * tamanhoCelula; })
             .attr('y', function (d) { return CONFIG.margem.topo + d.indiceY * tamanhoCelula; })
@@ -341,7 +406,12 @@ const Matriz = (function () {
             .on('mouseover', manipularMouseOverCelula)
             .on('mousemove', moverTooltip)
             .on('mouseleave', manipularMouseLeaveCelula)
-            .on('click', function (evento, d) { manipularCliqueCelula(d); });
+            .on('click', function (evento, d) { manipularCliqueCelula(d); })
+            .on('keydown', function (evento, d) {
+                tratarAtivacaoPorTeclado(evento, function () {
+                    manipularCliqueCelula(d);
+                });
+            });
 
         desenharLegenda(infoMetrica, valorMaximo, escalaCor);
     }
@@ -362,6 +432,9 @@ const Matriz = (function () {
     }
 
     function atualizar(filtros) {
+        d3.select('#matriz-nota-temporal')
+            .property('hidden', filtros.dataInicial === null || filtros.dataFinal === null);
+
         const dadosFiltrados = filtrarPorAnoEUf(ESTADO.dadosBrutos, filtros);
 
         if (!possuiDados(dadosFiltrados)) {
