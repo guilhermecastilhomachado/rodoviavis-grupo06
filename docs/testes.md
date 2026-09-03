@@ -110,7 +110,11 @@ d3.selectAll('#calendario-container rect.calendario-celula-selecionada').size()
 - o brush define período inicial e final;
 - limpar o brush remove o período;
 - trocar o ano limpa um período incompatível;
-- a seleção deve atualizar KPIs, mapa, scatterplot e calendário.
+- a seleção deve recalcular KPIs, mapa e scatterplot;
+- o calendário deve preservar o contexto completo e destacar/esmaecer o recorte;
+- a matriz deve exibir a nota de que o agregado contextual possui granularidade anual.
+
+Verificação adicional: compare os KPIs antes e depois de selecionar um intervalo curto. Os valores devem mudar quando o recorte temporal contiver apenas parte dos dias.
 
 ## 10. Responsividade
 

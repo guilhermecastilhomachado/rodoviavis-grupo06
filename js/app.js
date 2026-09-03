@@ -21,19 +21,13 @@
  */
 
 const CAMINHOS_DADOS = {
-    porUfAno: 'data/processed/agregado_uf_ano.csv',
     porDataUf: 'data/processed/agregado_data_uf.csv',
-    porMesUf: 'data/processed/agregado_mes_uf.csv',
-    porCausaHorarioUf: 'data/processed/agregado_causa_horario_uf.csv',
-    perfilUfAno: 'data/processed/perfil_uf_ano.csv'
+    porCausaHorarioUf: 'data/processed/agregado_causa_horario_uf.csv'
 };
 
 const Dados = {
-    porUfAno: [],
     porDataUf: [],
-    porMesUf: [],
-    porCausaHorarioUf: [],
-    perfilUfAno: []
+    porCausaHorarioUf: []
 };
 
 // Cada módulo dos colegas deve expor um objeto global com, no
@@ -90,22 +84,6 @@ const MODULOS = [
 ];
 
 // ===== CONVERSÃO DOS REGISTROS DE CADA ARQUIVO =====
-// agregado_uf_ano.csv e perfil_uf_ano.csv têm as mesmas colunas,
-// então usam a mesma função de conversão.
-
-function converterRegistroUfAno(d) {
-    return {
-        ano: paraNumero(d.ano),
-        uf: d.uf,
-        regiao: d.regiao,
-        total_acidentes: paraNumero(d.total_acidentes),
-        total_graves_fatais: paraNumero(d.total_graves_fatais),
-        total_mortos: paraNumero(d.total_mortos),
-        total_feridos_graves: paraNumero(d.total_feridos_graves),
-        total_vitimas: paraNumero(d.total_vitimas),
-        taxa_gravidade: paraNumero(d.taxa_gravidade)
-    };
-}
 
 function converterRegistroDataUf(d) {
     return {
@@ -115,22 +93,6 @@ function converterRegistroDataUf(d) {
         dia_semana: d.dia_semana,
         dia_semana_numero: paraNumero(d.dia_semana_numero),
         fim_semana: paraBooleano(d.fim_semana),
-        uf: d.uf,
-        regiao: d.regiao,
-        total_acidentes: paraNumero(d.total_acidentes),
-        total_graves_fatais: paraNumero(d.total_graves_fatais),
-        total_mortos: paraNumero(d.total_mortos),
-        total_feridos_graves: paraNumero(d.total_feridos_graves),
-        total_vitimas: paraNumero(d.total_vitimas),
-        taxa_gravidade: paraNumero(d.taxa_gravidade)
-    };
-}
-
-function converterRegistroMesUf(d) {
-    return {
-        ano: paraNumero(d.ano),
-        mes_numero: paraNumero(d.mes_numero),
-        mes_nome: d.mes_nome,
         uf: d.uf,
         regiao: d.regiao,
         total_acidentes: paraNumero(d.total_acidentes),
@@ -161,19 +123,13 @@ function converterRegistroCausaHorarioUf(d) {
 // ===== CARREGAMENTO =====
 
 Promise.all([
-    d3.csv(CAMINHOS_DADOS.porUfAno, converterRegistroUfAno),
     d3.csv(CAMINHOS_DADOS.porDataUf, converterRegistroDataUf),
-    d3.csv(CAMINHOS_DADOS.porMesUf, converterRegistroMesUf),
-    d3.csv(CAMINHOS_DADOS.porCausaHorarioUf, converterRegistroCausaHorarioUf),
-    d3.csv(CAMINHOS_DADOS.perfilUfAno, converterRegistroUfAno)
+    d3.csv(CAMINHOS_DADOS.porCausaHorarioUf, converterRegistroCausaHorarioUf)
 ]).then(function (resultados) {
-    Dados.porUfAno = resultados[0];
-    Dados.porDataUf = resultados[1];
-    Dados.porMesUf = resultados[2];
-    Dados.porCausaHorarioUf = resultados[3];
-    Dados.perfilUfAno = resultados[4];
+    Dados.porDataUf = resultados[0];
+    Dados.porCausaHorarioUf = resultados[1];
 
-    console.info('RodoviaVis: cinco conjuntos de dados carregados com sucesso.');
+    console.info('RodoviaVis: dois conjuntos de dados agregados carregados com sucesso.');
 
     inicializarModulos();
     inscreverEstado(atualizarDashboard);

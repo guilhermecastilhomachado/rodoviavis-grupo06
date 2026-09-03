@@ -1,77 +1,38 @@
-# Dados processados — RodoviaVis
+# Dados processados - RodoviaVis
 
-Esta pasta contém as bases tratadas e os arquivos agregados utilizados
-pelo sistema RodoviaVis.
+Esta pasta contém a base tratada e os arquivos agregados produzidos pelo pipeline em `preprocessing/`.
 
-Os arquivos deste diretório são gerados pelos scripts existentes em
-`preprocessing/` e não devem ser editados manualmente.
+## Base detalhada
 
-## `acidentes_2022_2024.csv`
+`acidentes_2022_2024.csv` reúne uma ocorrência por linha:
 
-Base detalhada unificada dos acidentes registrados pela Polícia
-Rodoviária Federal nos anos de 2022, 2023 e 2024.
-
-### Características
-
-- unidade de análise: uma ocorrência de acidente por linha;
 - período: 2022 a 2024;
 - registros: 205.528;
 - colunas: 44;
-- separador: vírgula;
 - codificação: UTF-8;
-- IDs únicos: 205.528;
-- tamanho aproximado: 71,13 MiB.
+- tamanho aproximado: 71 MiB.
 
-### Quantidade de registros por ano
+Registros por ano:
 
 - 2022: 64.606;
 - 2023: 67.766;
 - 2024: 73.156.
 
-### Principais variáveis derivadas
+A base detalhada é um produto intermediário do pipeline e **não é carregada pelo navegador**.
 
-- `ano`;
-- `mes_numero`;
-- `mes_nome`;
-- `dia_mes`;
-- `dia_semana_numero`;
-- `fim_semana`;
-- `hora`;
-- `faixa_horario`;
-- `regiao`;
-- `causa_acidente_original`;
-- `acidente_fatal`;
-- `acidente_com_ferido_grave`;
-- `acidente_grave_ou_fatal`;
-- `total_vitimas`.
+## Arquivos agregados gerados
 
-### Reprodução
+| Arquivo | Linhas | Finalidade |
+|---|---:|---|
+| `agregado_uf_ano.csv` | 81 | análise anual por UF / rastreabilidade |
+| `agregado_data_uf.csv` | 25.774 | runtime: KPIs, mapa, scatterplot, calendário e linha temporal |
+| `agregado_mes_uf.csv` | 972 | análise mensal / rastreabilidade |
+| `agregado_causa_horario_uf.csv` | 12.631 | runtime: matriz contextual |
+| `perfil_uf_ano.csv` | 81 | perfil anual por UF / rastreabilidade |
 
-Para gerar novamente o arquivo, execute na raiz do projeto:
+A versão atual do front-end carrega somente `agregado_data_uf.csv` e `agregado_causa_horario_uf.csv`. Os demais agregados continuam sendo produzidos para documentação, conferência e possíveis extensões.
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-python preprocessing/preparar_dados.py
-```
-
-## Utilização no sistema
-
-Esta base detalhada serve como origem para a criação dos arquivos
-agregados. Os layouts em D3.js deverão utilizar prioritariamente os
-arquivos agregados, pois são menores e mais adequados para carregamento
-no navegador.
-
-## Arquivos agregados
-
-O script `preprocessing/gerar_agregados.py` gera os seguintes arquivos:
-
-- `agregado_uf_ano.csv` — métricas anuais por UF e região, utilizado pelo mapa;
-- `agregado_data_uf.csv` — métricas diárias por UF, utilizado pelo calendário;
-- `agregado_mes_uf.csv` — métricas mensais por UF, utilizado pela linha temporal;
-- `agregado_causa_horario_uf.csv` — métricas por causa, faixa de horário e UF, utilizado pela matriz;
-- `perfil_uf_ano.csv` — perfil anual das UFs, utilizado pelo scatterplot.
-
-Os arquivos compartilham as métricas:
+## Métricas compartilhadas
 
 - `total_acidentes`;
 - `total_graves_fatais`;
@@ -80,18 +41,21 @@ Os arquivos compartilham as métricas:
 - `total_vitimas`;
 - `taxa_gravidade`.
 
-A taxa de gravidade é calculada por:
+A taxa de gravidade é calculada como:
 
 ```text
 total_graves_fatais / total_acidentes
 ```
 
-### Dimensões dos arquivos
+Ao reagrupar dados, a taxa deve ser recalculada a partir dos totais; não deve ser somada nem obtida pela média simples das taxas existentes.
 
-| Arquivo | Linhas | Colunas | Finalidade |
-|---|---:|---:|---|
-| `agregado_uf_ano.csv` | 81 | 9 | Mapa e KPIs por UF |
-| `agregado_data_uf.csv` | 25.774 | 14 | Calendário |
-| `agregado_mes_uf.csv` | 972 | 11 | Linha temporal |
-| `agregado_causa_horario_uf.csv` | 12.631 | 11 | Matriz contextual |
-| `perfil_uf_ano.csv` | 81 | 9 | Scatterplot |
+## Reprodução
+
+Depois de colocar as três bases originais em `data/raw/`, execute:
+
+```powershell
+python preprocessing/preparar_dados.py
+python preprocessing/gerar_agregados.py
+```
+
+Os arquivos produzidos pelo pipeline são determinísticos para as mesmas entradas. Na revisão de portfólio, a regeneração foi conferida por hash contra os arquivos existentes.
