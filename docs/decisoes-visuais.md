@@ -1,69 +1,98 @@
 # Decisões visuais do RodoviaVis
 
-## 1. Objetivo analítico
+## 1. Perguntas analíticas
 
-O sistema busca responder cinco perguntas:
+O dashboard combina técnicas diferentes porque cada uma responde melhor a uma pergunta:
 
-1. Qual é a dimensão geral dos acidentes e de sua gravidade?
-2. Onde os acidentes se concentram?
+1. Qual é a dimensão geral dos acidentes e da gravidade?
+2. Onde os valores se concentram?
 3. Quais UFs combinam volume e gravidade elevados?
-4. Quando ocorrem os principais picos?
-5. Quais causas predominam em cada faixa horária?
+4. Quando surgem picos e recorrências?
+5. Quais causas aparecem com maior intensidade em cada faixa horária?
 
-## 2. Indicadores gerais
+Tentar codificar todas essas dimensões em um único gráfico aumentaria a carga visual e reduziria a legibilidade.
 
-Os KPIs apresentam totais de acidentes, ocorrências graves ou fatais, mortos, feridos graves, vítimas e taxa de gravidade. Eles oferecem uma leitura inicial e são recalculados conforme os filtros compatíveis.
+## 2. KPIs - visão geral
 
-## 3. Mapa coroplético
+Os cartões apresentam seis indicadores: total de acidentes, ocorrências graves ou fatais, mortos, feridos graves, vítimas e taxa de gravidade.
 
-O mapa utiliza posição geográfica para representar as UFs e uma escala sequencial amarelo–laranja–vermelho para codificar a métrica escolhida. Tons mais escuros indicam valores maiores. A legenda é atualizada com o subconjunto filtrado.
+A taxa de gravidade é sempre recalculada a partir dos totais filtrados:
 
-O clique em um estado define a UF no estado global. O zoom auxilia a inspeção, mas não substitui o filtro.
+```text
+taxa_gravidade = total_graves_fatais / total_acidentes
+```
 
-## 4. Scatterplot de perfil de risco
+Ela não é obtida pela média simples das taxas das UFs, pois isso daria o mesmo peso a estados com volumes muito diferentes.
+
+Na versão de portfólio, os KPIs usam o agregado diário para responder também ao período selecionado na linha temporal.
+
+## 3. Mapa coroplético - onde?
+
+- **marca:** área de cada UF;
+- **posição/forma:** geografia do Brasil;
+- **cor sequencial:** valor da métrica selecionada;
+- **interação:** tooltip, seleção de UF e zoom.
+
+A escala sequencial amarelo-laranja-vermelho comunica ordem: tons mais escuros representam valores maiores.
+
+O mapa é adequado para padrões espaciais, mas não é a melhor técnica para ranking preciso. Um gráfico de barras ordenado facilitaria comparações exatas entre UFs, porém perderia a estrutura geográfica.
+
+## 4. Scatterplot - volume versus gravidade
+
+Cada círculo representa uma UF:
 
 - eixo x: total de acidentes;
 - eixo y: taxa de gravidade;
-- cor: região do Brasil;
-- tamanho: quantidade de mortos.
+- tamanho: total de mortos, usando escala de raiz quadrada;
+- cor: região do Brasil.
 
-As linhas de média dividem o plano em quadrantes e ajudam a distinguir UFs com volume e gravidade acima ou abaixo da média do conjunto exibido.
+As linhas de média criam quatro quadrantes para separar combinações de alto/baixo volume e alta/baixa gravidade. As cores são categóricas porque as regiões não possuem ordem natural.
 
-## 5. Calendário heatmap
+O scatterplot complementa o mapa: uma UF com muitos acidentes não é necessariamente a que possui maior gravidade proporcional.
 
-Cada célula representa um dia. A intensidade da cor indica o valor da métrica selecionada. A organização semanal preserva a percepção de sazonalidade, recorrência e picos diários.
+## 5. Calendário heatmap - quando?
 
-## 6. Matriz de causa e faixa horária
+Cada célula representa um dia. A organização em semanas e dias da semana preserva a estrutura temporal e facilita perceber recorrência, sazonalidade e picos.
 
-As colunas representam causas de acidentes e as linhas representam Madrugada, Manhã, Tarde e Noite. A cor indica a métrica selecionada. Os controles Top 5/10/15/Todas reduzem a sobrecarga visual.
+A cor é eficiente para detectar padrões em muitas células. Valores exatos ficam disponíveis em tooltip.
 
-Quando a métrica é taxa de gravidade, a taxa é recalculada a partir dos totais do grupo, e não somada nem calculada pela média simples das taxas.
+Quando existe um período selecionado na linha temporal, o calendário mantém o contexto completo e destaca o intervalo em vez de remover os demais dias. Essa escolha preserva orientação temporal.
 
-A matriz utiliza um agregado anual por UF, causa e faixa horária. Portanto, o intervalo diário da linha temporal não é aplicado a esse painel. A interface informa essa limitação quando um período está ativo.
+## 6. Matriz contextual - causa versus faixa horária
 
-## 7. Linha temporal
+- colunas: causas;
+- linhas: Madrugada, Manhã, Tarde e Noite;
+- cor: métrica selecionada.
 
-A série diária permite identificar tendência e picos. O brush transforma a seleção visual em `dataInicial` e `dataFinal`, coordenando os módulos que possuem dimensão diária.
+Os controles Top 5/10/15/Todas evitam excesso de categorias. A ordenação por valor facilita localizar concentrações; a alfabética favorece busca por uma causa conhecida.
 
-## 8. Cores e consistência
+A matriz usa agregado anual por UF, causa e faixa horária. Por isso, não aplica o recorte diário da linha temporal e informa essa limitação quando necessário.
 
-A interface usa azul-escuro e cinza-azulado para estrutura e interação. A escala YlOrRd é reservada para intensidade e gravidade, evitando misturar cores decorativas com cores que codificam dados.
+## 7. Linha temporal - navegação temporal
 
-As cores regionais do scatterplot são categóricas porque representam grupos sem ordem natural.
+A linha temporal é uma visualização auxiliar de contexto e navegação:
 
-## 9. Interação coordenada
+- eixo x: data;
+- eixo y: métrica selecionada;
+- pontos/linha: evolução diária;
+- brush: transforma uma seleção visual em `dataInicial` e `dataFinal`.
 
-- controles globais: ano, UF e métrica;
-- mapa e scatterplot: seleção de UF;
-- calendário: seleção de data;
-- matriz: seleção de causa e faixa horária;
-- linha temporal: seleção de período;
-- botão Restaurar: retorno ao estado inicial.
+O eixo x mantém 2022-2024 como referência estável. O brush atualiza os módulos com granularidade compatível.
 
-## 10. Acessibilidade e responsividade
+## 8. Linked views
 
-Elementos interativos importantes possuem foco visível, rótulos acessíveis e ativação por Enter ou Espaço quando aplicável. Tooltips complementam, mas não são a única indicação de seleção. Gráficos largos utilizam rolagem horizontal em telas pequenas.
+O estado global coordena os módulos. Uma interação não chama diretamente outro gráfico; ela altera filtros compartilhados e cada módulo decide como responder.
 
-## 11. Limites estaduais
+Isso permite combinar múltiplas perspectivas sem duplicar lógica de integração.
 
-A origem, a licença MIT, o processamento e as limitações topológicas do GeoJSON estão documentados em `data/geo/README.md` e `data/geo/LICENSE-MIT.txt`.
+## 9. Cor e consistência
+
+A interface reserva a escala YlOrRd para quantidade/intensidade e usa cores categóricas no scatterplot para regiões. Cores decorativas não devem competir com cores que codificam dados.
+
+## 10. Limitações de interpretação
+
+- associação não implica causalidade;
+- volume absoluto não é sinônimo de risco individual;
+- a taxa de gravidade é uma proporção específica, não um índice completo de segurança;
+- resultados por UF não controlam exposição, frota, população, extensão da malha ou fluxo de veículos;
+- o sistema apoia exploração e geração de hipóteses, não previsão.

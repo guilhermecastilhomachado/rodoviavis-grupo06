@@ -2,9 +2,11 @@
  * RodoviaVis — kpis.js
  * Responsável: Guilherme Castilho Machado (dados, arquitetura e integração)
  *
- * Painel de indicadores gerais (#painel-kpis). Usa Dados.porUfAno,
- * que tem uma linha por UF e ano com os totais já prontos — não
- * precisa recalcular nada em cima da base detalhada.
+ * Painel de indicadores gerais (#painel-kpis). Usa Dados.porDataUf,
+ * o mesmo agregado diário utilizado pelas visualizações temporais.
+ * Isso permite que ano, UF e o período selecionado na Timeline
+ * atualizem os indicadores de forma consistente, sem carregar a
+ * base detalhada no navegador.
  *
  * Indicadores mostrados:
  *   1. total de acidentes;
@@ -38,7 +40,7 @@ const KPIs = {
     dados: [],
 
     iniciar: function (dados) {
-        KPIs.dados = Array.isArray(dados.porUfAno) ? dados.porUfAno : [];
+        KPIs.dados = Array.isArray(dados.porDataUf) ? dados.porDataUf : [];
 
         criarEstruturaDosCartoes();
 

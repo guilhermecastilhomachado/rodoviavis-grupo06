@@ -303,6 +303,16 @@ h2 {
     margin: 0;
 }
 
+.rodape a {
+    color: inherit;
+    font-weight: 700;
+    text-underline-offset: 2px;
+}
+
+.rodape a:hover {
+    color: var(--cor-texto);
+}
+
 #tooltip-global {
     position: absolute;
     z-index: 1000;
