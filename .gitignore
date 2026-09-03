@@ -17,3 +17,6 @@ Thumbs.db
 *.log
 ~$*.docx
 ~$*.pptx
+# Dados grandes reproduzíveis - não versionar na versão pública
+data/raw/*.csv
+data/processed/acidentes_2022_2024.csv
