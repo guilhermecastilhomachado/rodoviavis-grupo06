@@ -24,7 +24,3 @@ O RodoviaVis foi desenvolvido originalmente em equipe no contexto da disciplina 
 
 - desenvolvimento do mapa coroplético;
 - desenvolvimento do scatterplot de perfil de risco.
-
-## Sobre esta versão pública
-
-A versão de portfólio preserva a autoria coletiva. Melhorias realizadas após a entrega acadêmica devem ser registradas no histórico do repositório como refinamentos posteriores, sem alterar a atribuição do trabalho original.
