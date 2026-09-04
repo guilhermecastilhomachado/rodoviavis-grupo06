@@ -197,5 +197,3 @@ Veja também [`CONTRIBUTORS.md`](CONTRIBUTORS.md).
 ## Licenças e atribuições
 
 Os dados de acidentes são provenientes do portal de Dados Abertos da PRF. A origem e o licenciamento do arquivo geográfico utilizado no mapa estão documentados em [`data/geo/README.md`](data/geo/README.md).
-
-O código foi produzido por quatro integrantes. Uma licença de reutilização do código deve ser definida em conjunto pelos coautores antes de adicionar um arquivo `LICENSE` ao repositório público.
